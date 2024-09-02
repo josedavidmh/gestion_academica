@@ -1,0 +1,1 @@
+CREATE OR REPLACE VIEW vista_fichas AS SELECT fichas_id as vista_fichas_id,ficha_nombre,ficha_inicio,ficha_finalizacion,programa_id,programa_nombre,programa_codigo FROM (`programa` JOIN `fichas`) WHERE (`programa`.`programa_id` = `fichas`.`ficha_programa`)

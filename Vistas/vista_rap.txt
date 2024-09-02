@@ -1,0 +1,1 @@
+CREATE OR REPLACE VIEW vista_rap AS SELECT rap_id AS vista_rap_id,rap_codigo,rap_nombre,rap_horas_directas,rap_horas_otras,rap_conceptos,rap_competencia,competencia_nombre,competencia_perfil FROM rap,competencias WHERE (rap_competencia = competencias_id)

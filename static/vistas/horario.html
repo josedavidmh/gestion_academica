@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/estilos.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="/static/jsext/sweetalert.min.js"></script>
+    <script src="/static/js/app.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css"/> 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.20/b-1.6.0/b-html5-1.6.0/datatables.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script> -->
+  
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.print.min.js"></script>   -->
+    <link href="/static/css/estilos2.css" rel="stylesheet">
+   
+    <style>
+    .combos{
+        font-size: 22px;
+    }
+
+    .combos option {
+        font-size: 8px;
+      }
+
+    #submarco{
+        margin: 5px;
+    }
+    </style>
+    <title>Gestión académica</title>
+
+    <script>
+          //const tiempoTranscurrido = Date.now();
+           //hoy = new Date(tiempoTranscurrido);
+           //document.getElementById('start').value=hoy
+           //document.getElementById('end').value=hoy
+    </script>
+</head>
+<body >
+    <div id="main">
+        <div id="marco" class="my-5 text-center">
+            <h3 id="titulo">Horario</h3>
+            <div id="submarco">
+                <label for="start">Fecha inicial:</label>
+                <input onchange=""  type="date" id="start" name="trip-start" value="2024-01-01" min="2024-01-01" max="2026-01-01" />
+                <label for="end">Fecha final:</label>
+                <input onchange="" type="date" id="end" name="trip-end" value="2024-02-01" min="2024-01-01" max="2026-01-01" />
+                Ficha <select onchange="" id="ficha" name="ficha" class="combos"> 
+                    <option value="na" selected >Seleccione una ficha</option>
+                </select>
+                <button type='button' class="btn btn-info w-25" id="boton1" onclick="horario(document.getElementById('ficha').value,document.getElementById('start').value,document.getElementById('end').value)"> 
+                    <img src='/static/img/search.png' height ='30' width='30'/>Consultar</button> 
+            </div>
+            <table id="table_id_horario" class="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr id="contextos">
+                    <td style="background-color:rgb(238, 238, 211)" width="10%">Bloque</td>   
+                    <td style="background-color:rgb(238, 241, 53)">Lunes</td>  
+                    <td style="background-color:rgb(117, 191, 240)">Martes</td> 
+                    <td style="background-color:rgb(245, 124, 54)">Miercoles</td> 
+                    <td style="background-color:rgb(160, 250, 87)">Jueves</td> 
+                    <td style="background-color:rgb(206, 137, 238)">Viernes</td> 
+                  </tr> 
+                </thead>
+                <tbody id="data_horario" >
+                    <tr><td rowspan="5" style="background-color:rgb(188, 245, 102)">Bloque A 06:00 - 09:00 am</td>
+                        <td style="background-color:rgb(188, 245, 102)" class="ba"><select class='combos' id="ALUNES" name="instructor"><option value="1" disabled selected="false">Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(188, 245, 102)" class="ba"><select class='combos' id="AMARTES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(188, 245, 102)" class="ba"><select class='combos' id="AMIERCOLES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(188, 245, 102)" class="ba"><select class='combos' id="AJUEVES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(188, 245, 102)" class="ba"><select class='combos' id="AVIERNES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                    </tr>
+                    <tr>
+                        <td ><select class='combos'id="ALUNESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AMARTESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AMIERCOLESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AJUEVESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AVIERNESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr>
+                        <td><select class='combos' id="ALUNESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AMARTESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AMIERCOLESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AJUEVESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AVIERNESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr>
+                        <td><select class='combos' id="ALUNESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AMARTESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AMIERCOLESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AJUEVESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AVIERNESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr>
+                        <td ><select class='combos' id="ALUNESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AMARTESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AMIERCOLESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AJUEVESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="AVIERNESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr><td rowspan="5" style="background-color:rgb(132, 209, 17)">Bloque B 09:00 - 12:00 am</td>
+                        <td style="background-color:rgb(132, 209, 17)"><select class='combos' id="BLUNES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(132, 209, 17)"><select class='combos' id="BMARTES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(132, 209, 17)"><select class='combos' id="BMIERCOLES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(132, 209, 17)"><select class='combos' id="BJUEVES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(132, 209, 17)"><select class='combos' id="BVIERNES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                    </tr>
+                    <tr>
+                        <td ><select class='combos' id="BLUNESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BMARTESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BMIERCOLESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BJUEVESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BVIERNESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr>
+                        <td ><select class='combos' id="BLUNESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BMARTESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BMIERCOLESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BJUEVESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BVIERNESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr>
+                        <td ><select class='combos' id="BLUNESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BMARTESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BMIERCOLESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BJUEVESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BVIERNESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr>
+                        <td ><select class='combos' id="BLUNESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BMARTESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BMIERCOLESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BJUEVESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="BVIERNESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr><td rowspan="5" style="background-color:rgb(162, 215, 236)">Bloque C 01:00 - 04:00 pm</td>
+                        <td style="background-color:rgb(162, 215, 236)"><select class='combos' id="CLUNES"  name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(162, 215, 236)"><select class='combos' id="CMARTES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(162, 215, 236)"><select class='combos' id="CMIERCOLES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(162, 215, 236)"><select class='combos' id="CJUEVES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(162, 215, 236)"><select class='combos' id="CVIERNES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                    </tr>
+                    <tr>
+                        <td><select class='combos' id="CLUNESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CMARTESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CMIERCOLESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CJUEVESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CVIERNESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr>
+                        <td><select class='combos' id="CLUNESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CMARTESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CMIERCOLESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CJUEVESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CVIERNESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr>
+                        <td><select class='combos' id="CLUNESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CMARTESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CMIERCOLESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CJUEVESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CVIERNESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr>
+                        <td ><select class='combos' id="CLUNESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CMARTESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CMIERCOLESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CJUEVESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="CVIERNESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr><td rowspan="5" style="background-color:rgb(90, 147, 233)">Bloque D 04:00 - 07:00 pm</td>
+                        <td style="background-color:rgb(90, 147, 233)"><select class='combos' id="DLUNES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(90, 147, 233)"><select class='combos' id="DMARTES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(90, 147, 233)"><select class='combos' id="DMIERCOLES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(90, 147, 233)"><select class='combos' id="DJUEVES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                        <td style="background-color:rgb(90, 147, 233)"><select class='combos' id="DVIERNES" name="instructor"><option value="1" disabled selected>Selecc. instructor</option></select></td>
+                    </tr>
+                    <tr>
+                        <td><select class='combos' id="DLUNESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DMARTESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DMIERCOLESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DJUEVESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DVIERNESRAP1" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr>
+                        <td ><select class='combos' id="DLUNESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DMARTESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DMIERCOLESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DJUEVESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DVIERNESRAP2" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr>
+                        <td ><select class='combos' id="DLUNESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DMARTESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DMIERCOLESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DJUEVESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DVIERNESRAP3" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                    <tr>
+                        <td ><select class='combos' id="DLUNESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DMARTESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DMIERCOLESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DJUEVESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                        <td><select class='combos' id="DVIERNESRAP4" name="rap"><option value="1" disabled selected>Seleccione el RAP</option></select></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button id="btnGuardar" disabled="true" class="btn btn-info" onclick="enviar_horario()"> 
+                <img src='/static/img/add.png' height ='30' width='30'/>Guardar</button>  
+            <button type='button' class="btn btn-warning" onclick="window.history.back()"> <img src='/static/img/atras.png' height ='30' width='30'/>Regresar</button>           
+        </div>
+        <script>
+       $(document).ready(function() {
+        $('.combos').select2();
+    });
+        </script>
+        <script src="/static/js/app_horario.js"></script>
+    </div>
+</body>
+</html>
