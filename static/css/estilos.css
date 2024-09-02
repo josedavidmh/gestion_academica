@@ -1,0 +1,98 @@
+/*@import url('https://fonts.googleapis.com/css2?family=open+Sans&display=swap');*/
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+body{
+    /*background-image: url(/frontend/img/fondo10.jpg);*/
+    background-size:cover;
+    background-color: rgba(244, 247, 244, 0.5);
+}
+.img-container {
+    width: 100%;
+    height: 100vh;
+    background-image: url(/frontend/img/fondo2.jpg);
+    background-size: cover;
+    overflow: auto;
+} 
+nav{
+    max-width: 900px;
+    margin:auto;
+    background-color: rgb(99, 247, 247);
+    font-size: 20px;
+    margin-top: 50px;
+}
+.menu-horizontal{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+.menu-horizontal> li > a{
+    display: block;
+    padding: 15px 20px;
+    color:rgb(74, 88, 80);
+    text-decoration: none;
+}
+.menu-horizontal>li:hover{
+    background-color: rgb(42, 217, 39);
+}
+.menu-vertical{
+    position: absolute;
+    display: none;
+    list-style: none;
+    width: 200px;
+    background-color: rgba(0, 0,0, .5);
+}
+.menu-horizontal li:hover .menu-vertical{
+    display: block;
+}
+.menu-vertical li:hover{
+    background-color: rgb(42, 217, 39);
+}
+.menu-vertical li a{
+    display: block;
+    color:white;
+    padding:10px 10px 10px 15px;
+}
+
+#main{
+    max-width: 1200px;
+    margin:auto;
+    margin-top: 5px;
+    padding: 10;
+}
+
+#titulo{
+    color:rgb(74, 88, 80);
+    margin-top: 20px;
+    text-align: center;
+    text-shadow: 2px 2px 2px rgb(42, 217, 39);
+}
+
+#mainEdit{
+    max-width: 1200px;
+    margin:auto;
+    margin-top: 2px;
+    padding: 5px;
+}
+
+.marcoEdit{
+    max-width: 1200px;
+    margin-top: 5px;
+    padding: 5px;
+    border-style: solid;
+    border-color: rgb(173, 169, 169);
+    border-width: thin;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgb(92, 90, 90,0.5);
+    background-color:rgb(99, 247, 247);
+    /*background-color:rgb(240, 240, 240);*/
+    justify-content: center;
+    align-items: center;
+}
+
+.tarjeta{
+    margin:10px;
+}
